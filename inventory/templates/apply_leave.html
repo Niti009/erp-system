@@ -1,0 +1,29 @@
+@login_required
+def apply_leave(request):
+    form = LeaveApplicationForm(request.POST or None)
+
+    if form.is_valid():
+        leave = form.save(commit=False)
+        leave.employee = request.user
+
+        # Smart leave type suggestion (simple logic)
+        reason = leave.reason.lower()
+        if 'fever' in reason or 'cold' in reason or 'sick' in reason:
+            leave.leave_type = 'Sick'
+        elif 'emergency' in reason or 'urgent' in reason:
+            leave.leave_type = 'Earned'
+        else:
+            leave.leave_type = 'Casual'
+
+        # Auto-approve if casual + 1 day
+        days = (leave.end_date - leave.start_date).days + 1
+        if leave.leave_type == 'Casual' and days == 1:
+            leave.status = 'Approved'
+            messages.info(request, '✅ 1-day casual leave auto-approved.')
+        else:
+            messages.info(request, f'ℹ️ Leave type detected as {leave.leave_type}.')
+
+        leave.save()
+        return redirect('view_leaves')
+
+    return render(request, 'leave_application.html', {'form': form})

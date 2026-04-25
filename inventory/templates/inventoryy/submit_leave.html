@@ -1,0 +1,18 @@
+<!-- inventory/templates/inventory/submit_leave.html -->
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Submit Leave Application</title>
+</head>
+<body>
+    <h2>Submit Leave Application</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Submit</button>
+    </form>
+
+</body>
+</html>

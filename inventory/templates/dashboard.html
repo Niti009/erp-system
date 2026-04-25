@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-3xl mx-auto mt-12 p-10 bg-white rounded-3xl shadow-xl border border-gray-200">
+  <h1 class="text-4xl font-bold text-center text-[#88BDF2] mb-6">👋 Welcome to the ERP Dashboard</h1>
+
+  <div class="text-center bg-gradient-to-r from-[#C1BFFF] to-[#88BDF2] text-white py-4 px-6 rounded-xl shadow-md mb-6">
+    <p class="text-lg font-semibold">🕓 Today's Status: <span class="font-bold">{{ today_status }}</span></p>
+  </div>
+
+  <div class="grid grid-cols-2 md:grid-cols-3 gap-6 mt-8 text-center">
+    <a href="{% url 'product_list' %}" class="bg-[#88BDF2] text-white font-semibold py-4 px-6 rounded-full shadow-lg hover:brightness-110 transition">📦 Products</a>
+    <a href="{% url 'customer_list' %}" class="bg-[#C1BFFF] text-white font-semibold py-4 px-6 rounded-full shadow-lg hover:brightness-110 transition">👥 Customers</a>
+    <a href="{% url 'apply_leave' %}" class="bg-[#88BDF2] text-white font-semibold py-4 px-6 rounded-full shadow-lg hover:brightness-110 transition">✈️ Apply Leave</a>
+    <a href="{% url 'view_leaves' %}" class="bg-[#C1BFFF] text-white font-semibold py-4 px-6 rounded-full shadow-lg hover:brightness-110 transition">📄 View Leaves</a>
+    <a href="{% url 'mark_attendance' %}" class="bg-[#88BDF2] text-white font-semibold py-4 px-6 rounded-full shadow-lg hover:brightness-110 transition">🕑 Attendance</a>
+    <a href="{% url 'upload_file' %}" class="bg-[#C1BFFF] text-white font-semibold py-4 px-6 rounded-full shadow-lg hover:brightness-110 transition">📤 Upload</a>
+  </div>
+</div>
+{% endblock %}

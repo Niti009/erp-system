@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto mt-12 p-8 bg-white rounded-3xl shadow-xl border border-gray-200">
+  <h2 class="text-3xl font-bold text-center text-[#88BDF2] mb-8">📅 Attendance History</h2>
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full bg-white border border-gray-200 rounded-xl shadow">
+      <thead class="bg-[#88BDF2] text-white">
+        <tr>
+          <th class="px-6 py-3 text-left text-sm font-semibold">Date</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold">Check-In</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold">Check-Out</th>
+          <th class="px-6 py-3 text-left text-sm font-semibold">Status</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100 text-gray-700">
+        {% for record in attendance_list %}
+        <tr class="hover:bg-gray-50">
+          <td class="px-6 py-4">{{ record.date }}</td>
+          <td class="px-6 py-4">{{ record.check_in|default:"--" }}</td>
+          <td class="px-6 py-4">{{ record.check_out|default:"--" }}</td>
+          <td class="px-6 py-4 font-semibold {% if record.status == 'Present' %}text-green-600{% else %}text-red-500{% endif %}">
+            {{ record.status }}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="4" class="px-6 py-4 text-center text-gray-500">No attendance records found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

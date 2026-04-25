@@ -1,0 +1,28 @@
+<h2>Leave Applications</h2>
+<table border="1">
+    <tr>
+        <th>User</th>
+        <th>Reason</th>
+        <th>From</th>
+        <th>To</th>
+        <th>Status</th>
+        <th>Actions</th>
+    </tr>
+    {% for leave in leaves %}
+    <tr>
+        <td>{{ leave.user.username }}</td>
+        <td>{{ leave.reason }}</td>
+        <td>{{ leave.from_date }}</td>
+        <td>{{ leave.to_date }}</td>
+        <td>{{ leave.status }}</td>
+        <td>
+            {% if leave.status == 'Pending' %}
+                <a href="{% url 'approve_leave' leave.id %}">Approve</a>
+                <a href="{% url 'reject_leave' leave.id %}">Reject</a>
+            {% else %}
+                {{ leave.status }}
+            {% endif %}
+        </td>
+    </tr>
+    {% endfor %}
+</table>
